@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To The Top Events | Premier Event Management</title>
+    
+    <!-- Fonts: Playfair Display (Luxury) & Montserrat (Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script> 
+    
+    <!-- Animate On Scroll Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. COLOR PALETTE & VARIABLES
+           (UPDATE THESE WITH YOUR LOGO COLORS)
+           ========================================= */
+        :root {
+            /* Replace with your specific Logo Hex Codes */
+            --primary-gold: #2B6E3D; 
+            --secondary-gold: #323634;
+            --deep-navy: #1C1E1E; /* Or Black */
+            --off-white: #FDFDFE;
+            --text-grey: #D7E4DA;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.4s ease;
+        }
+
+        /* =========================================
+           2. GLOBAL RESET & TYPOGRAPHY
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--deep-navy);
+            color: var(--off-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .text-center { text-align: center; }
+        
+        .gold-text { color: var(--primary-gold); }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-gold);
+            color: var(--deep-navy);
+            box-shadow: 0 0 20px rgba(43, 110, 61, 0.4);
+        }
+
+        .btn-filled {
+            background-color: var(--primary-gold);
+            color: var(--deep-navy);
+        }
+
+        .btn-filled:hover {
+            background-color: var(--off-white);
+            color: var(--deep-navy);
+            border-color: var(--off-white);
+        }
+
+        /* =========================================
+           3. NAVIGATION
+           ========================================= */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background: rgba(28, 30, 30, 0.95);
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            width: auto;
+            display: block;
+            background-color: transparent;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+        }
+
+        .logo img {
+            height: 50px;
+            /* Base transition handled in animation block */
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px; /* Thicker underline */
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-gold);
+            transition: var(--transition);
+            box-shadow: 0 0 10px var(--primary-gold); /* Glow effect */
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+        }
+
+        /* =========================================
+           4. HERO SECTION
+           ========================================= */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.65)), url('assets/Bg.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            animation: heroZoom 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroZoom {
+            0% { background-size: 100%; }
+            100% { background-size: 110%; }
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero::before,
+        .hero::after {
+            content: none;
+        }
+
+        .hero-content h1 {
+            font-size: 5.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--off-white);
+            font-weight: 900;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8), 0 0 40px rgba(43,110,61,0.5);
+            animation: titleReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes titleReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content h1 span {
+            display: block;
+            font-size: 1.8rem;
+            font-family: var(--font-body);
+            font-weight: 700;
+            letter-spacing: 8px;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(43,110,61,0.8);
+            animation: subtitleSlide 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        @keyframes subtitleSlide {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-content p {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--text-grey);
+            font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            animation: descFade 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        @keyframes descFade {
+            to { opacity: 1; }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-10px) translateX(-50%);}
+            60% {transform: translateY(-5px) translateX(-50%);}
+        }
+
+        /* =========================================
+           5. ABOUT SECTION
+           ========================================= */
+        .about {
+            background-color: var(--deep-navy);
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--off-white);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-grey);
+        }
+
+        .about-collage {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+
+        .about-collage::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            border: 2px solid var(--primary-gold);
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .collage-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: var(--transition);
+        }
+        
+        .collage-img:hover {
+            transform: scale(1.03);
+            z-index: 5;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+        }
+
+        .collage-main {
+            grid-column: span 2;
+            height: 350px;
+        }
+
+        .about-img-container::before {
+            content: none; /* Remove old border */
+        }
+
+        .about-img {
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        /* =========================================
+           6. SERVICES
+           ========================================= */
+        .services {
+            background-color: var(--deep-navy);
+        }
+
+        .section-header {
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .section-header .line {
+            width: 80px;
+            height: 2px;
+            background-color: var(--primary-gold);
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--secondary-gold);
+            padding: 40px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-gold);
+            letter-spacing: 1px;
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        /* =========================================
+           7. GALLERY (Placeholder Grid)
+           ========================================= */
+        .gallery {
+            padding-bottom: 0;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 300px;
+            grid-auto-flow: dense;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item img.focus-face {
+            object-position: 50% 30%;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(28, 30, 30, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-overlay h4 {
+            color: var(--primary-gold);
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item:hover .gallery-overlay h4 {
+            transform: translateY(0);
+        }
+
+        /* Grid Spans for Visual Interest */
+        .gallery-item:nth-child(1) { grid-column: span 2; }
+        .gallery-item:nth-child(4) { grid-column: span 2; }
+
+        .tubelight-text {
+            color: var(--off-white);
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            font-size: 2.2rem;
+            text-shadow:
+                0 0 10px rgba(255,255,255,0.8),
+                0 0 20px rgba(255,255,255,0.6),
+                0 0 30px rgba(255,255,255,0.5),
+                0 0 60px rgba(43,110,61,0.6);
+            animation: tubelightPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes tubelightPulse {
+            0%, 100% {
+                opacity: 0.85;
+                filter: drop-shadow(0 0 10px rgba(255,255,255,0.4));
+            }
+            50% {
+                opacity: 1;
+                text-shadow:
+                    0 0 15px rgba(255,255,255,1),
+                    0 0 35px rgba(255,255,255,0.9),
+                    0 0 55px rgba(43,110,61,0.9),
+                    0 0 80px rgba(43,110,61,0.8);
+            }
+        }
+
+        /* =========================================
+           8. CLIENT REVIEWS / TESTIMONIALS (3D Carousel)
+           ========================================= */
+        .reviews {
+            background: var(--deep-navy);
+            position: relative;
+            overflow: hidden;
+            perspective: 1200px; /* Depth */
+            height: 700px; /* Space for the 3D scene */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .carousel-scene {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            margin-top: 40px;
+            --arrow-offset: clamp(180px, 24vw, 360px);
+        }
+
+        /* Carousel Navigation */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            --btn-translate-x: -50%;
+            transform: translate(var(--btn-translate-x), -50%);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--primary-gold);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(43, 110, 61, 0.2);
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 15px rgba(43, 110, 61, 0.3);
+            transform: translate(var(--btn-translate-x), -50%) scale(1.1);
+        }
+
+        .prev-btn { --btn-translate-x: calc(-50% - var(--arrow-offset)); }
+        .next-btn { --btn-translate-x: calc(-50% + var(--arrow-offset)); }
+
+        @media (max-width: 1024px) {
+            .carousel-scene {
+                --arrow-offset: clamp(140px, 18vw, 260px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .carousel-btn {
+                left: auto;
+                transform: translateY(-50%);
+            }
+            .carousel-btn:hover {
+                transform: translateY(-50%) scale(1.1);
+            }
+            .prev-btn {
+                left: 15px;
+                --btn-translate-x: 0;
+            }
+            .next-btn {
+                right: 15px;
+                --btn-translate-x: 0;
+            }
+        }
+
+        .carousel {
+            width: 320px;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother bezier */
+            cursor: grab;
+        }
+
+        .carousel:active {
+            cursor: grabbing;
+        }
+
+        .review-card {
+            background: rgba(20, 22, 22, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(43, 110, 61, 0.3);
+            position: absolute;
+            width: 320px;
+            height: 380px;
+            left: 0;
+            top: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            /* Ensure cards are visible from both sides or just front */
+            backface-visibility: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            /* Important for 3D positioning */
+            transform-origin: center;
+            user-select: none; /* Prevent text selection while dragging */
+            -webkit-user-select: none;
+        }
+
+        /* Active card highlighting - handled by JS class or just facing front */
+        .review-card.active {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 30px rgba(43, 110, 61, 0.2);
+            opacity: 1;
+        }
+
+        .review-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--secondary-gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .review-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .review-quote {
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .review-text {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: auto; /* Push footer down */
+            font-style: italic;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--deep-navy);
+        }
+
+        .review-info h4 {
+            color: var(--off-white);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .review-info p {
+            color: var(--primary-gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .review-stars {
+            color: var(--primary-gold);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        /* =========================================
+           9. CONTACT / CTA
+           ========================================= */
+        .inquiry {
+            background: linear-gradient(rgba(28, 30, 30, 0.9), rgba(28, 30, 30, 0.9)), url('assets/IMG_4124.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inquiry::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(43, 110, 61, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .form-box {
+            max-width: 700px;
+            margin: 60px auto 0;
+            background: rgba(20, 22, 22, 0.8);
+            padding: 60px;
+            border-radius: 12px;
+            border: 1px solid rgba(43, 110, 61, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(43, 110, 61, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .form-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(43, 110, 61, 0.3), transparent);
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .form-box:hover::before {
+            opacity: 1;
+        }
+
+        .form-box:hover {
+            border-color: rgba(43, 110, 61, 0.4);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 0 60px rgba(43, 110, 61, 0.2);
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 18px 24px;
+            background: rgba(28, 30, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--off-white);
+            font-size: 1rem;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+            outline: none;
+            position: relative;
+        }
+
+        form input::placeholder,
+        form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.95rem;
+        }
+
+        form input:focus,
+        form select:focus,
+        form textarea:focus {
+            background: rgba(28, 30, 30, 0.8);
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(43, 110, 61, 0.1), 0 8px 20px rgba(43, 110, 61, 0.15);
+            transform: translateY(-2px);
+        }
+
+        form select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C9A961' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            padding-right: 50px;
+        }
+
+        form select option {
+            background: var(--deep-navy);
+            color: var(--off-white);
+            padding: 10px;
+        }
+
+        form textarea {
+            resize: vertical;
+            min-height: 140px;
+            font-family: var(--font-body);
+            line-height: 1.6;
+        }
+
+        form input[type="date"] {
+            color: var(--off-white);
+            cursor: pointer;
+        }
+
+        form input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        form input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
+        .btn-filled {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+            color: var(--deep-navy);
+            border: none;
+            padding: 18px 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(43, 110, 61, 0.3);
+        }
+
+        .btn-filled::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn-filled:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-filled:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(43, 110, 61, 0.5);
+        }
+
+        .btn-filled:active {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(43, 110, 61, 0.4);
+        }
+
+        @keyframes inputFocusGlow {
+            0%, 100% {
+                box-shadow: 0 0 0 3px rgba(43, 110, 61, 0.1), 0 8px 20px rgba(43, 110, 61, 0.15);
+            }
+            50% {
+                box-shadow: 0 0 0 3px rgba(43, 110, 61, 0.2), 0 8px 25px rgba(43, 110, 61, 0.25);
+            }
+        }
+
+        form input:focus,
+        form select:focus,
+        form textarea:focus {
+            animation: inputFocusGlow 2s ease-in-out infinite;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: radial-gradient(circle at top, rgba(43,110,61,0.2), rgba(28,30,30,1));
+            padding: 100px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .footer-col {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--off-white);
+            margin-bottom: 25px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-desc {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-top: 10px;
+        }
+
+        .footer-contact p {
+            color: var(--text-grey);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            color: var(--off-white);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .footer-social a i {
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .footer-social a:hover {
+            color: var(--primary-gold);
+        }
+
+        .footer-newsletter input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--off-white);
+            margin-bottom: 12px;
+        }
+
+        .footer-newsletter button {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
+            transition: var(--transition);
+        }
+
+        .footer-newsletter button:hover {
+            background: var(--primary-gold);
+            color: var(--deep-navy);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 20px;
+        }
+
+        .footer-bottom p {
+            color: var(--text-grey);
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .footer-bottom ul li a {
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: var(--text-grey);
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           10. RESPONSIVE MEDIA QUERIES
+           ========================================= */
+        @media (max-width: 1024px) {
+            .hero-content h1 { font-size: 4rem; letter-spacing: -1px; }
+            .hero-content h1 span { font-size: 1.5rem; letter-spacing: 6px; }
+            .hero-content p { font-size: 1.1rem; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid { gap: 40px; }
+            .section-padding { padding: 80px 0; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 75%;
+                background: linear-gradient(135deg, var(--deep-navy) 0%, var(--secondary-gold) 100%);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                box-shadow: -5px 0 25px rgba(0,0,0,0.7);
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .hamburger { display: block; z-index: 1001; }
+            
+            .hero {
+                background-attachment: scroll;
+                min-height: 100vh;
+            }
+            
+            .hero-content h1 { 
+                font-size: 2.5rem; 
+                letter-spacing: -1px;
+                margin-bottom: 15px;
+            }
+            
+            .hero-content h1 span { 
+                font-size: 1.2rem; 
+                letter-spacing: 4px;
+                margin-bottom: 10px;
+            }
+            
+            .hero-content p { 
+                font-size: 1rem;
+                padding: 0 20px;
+                margin-bottom: 30px;
+            }
+            
+            .container { padding: 0 1.5rem; }
+            .section-padding { padding: 60px 0; }
+            
+            .about-grid { 
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .about-text h2,
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .input-group { grid-template-columns: 1fr; }
+            
+            .gallery-item { grid-column: span 1 !important; }
+            .gallery-grid { 
+                grid-template-columns: 1fr;
+                grid-auto-rows: 250px;
+            }
+            
+            .footer-content { 
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content h1 span { font-size: 1rem; letter-spacing: 3px; }
+            .hero-content p { font-size: 0.95rem; }
+            .section-header h2 { font-size: 1.8rem; }
+            .service-card { padding: 30px 20px; }
+            .gallery-grid { grid-auto-rows: 200px; }
+        }
+        /* =========================================
+           11. ANIMATIONS & LIVELY EFFECTS
+           ========================================= */
+        
+        /* Logo Entrance & Hover */
+        @keyframes logoEntrance {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo img {
+            animation: logoEntrance 1.2s ease-out forwards;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+        }
+
+        .logo:hover img {
+            transform: scale(1.1) rotate(3deg);
+            filter: drop-shadow(0 0 15px rgba(43, 110, 61, 0.6));
+        }
+
+        /* Button Shine Effect */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg);
+            transition: 0.5s;
+        }
+
+        .btn:hover::after {
+            left: 150%;
+            transition: 0.7s ease-in-out;
+        }
+
+        /* Floating Icons in Services */
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .service-card:hover .icon-box i {
+            animation: floatIcon 2s ease-in-out infinite;
+            color: var(--off-white);
+            text-shadow: 0 0 20px var(--primary-gold);
+            transition: color 0.3s ease;
+        }
+
+        /* Image Hover Glint */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            z-index: 2;
+            display: block;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
+            transform: skewX(-25deg);
+        }
+        
+        .gallery-item:hover::before {
+            animation: shine .75s;
+        }
+
+        @keyframes shine {
+            100% { left: 125%; }
+        }
+
+        /* Scroll Progress Bar */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            z-index: 2000;
+            background: transparent;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: var(--primary-gold);
+            width: 0%;
+            transition: width 0.1s;
+            box-shadow: 0 0 10px var(--primary-gold);
+          height: auto;
+        }
+        .lenis.lenis-smooth {
+          scroll-behavior: auto !important; /* Force native smooth scroll off for Lenis */
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+          overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+          overflow: hidden;
+        }
+        .lenis.lenis-scrolling iframe {
+          pointer-events: none;
+        }
+
+        /* 2. Masked Text Reveal (The "Framer" Look) */
+        .reveal-container {
+            position: relative;
+            overflow: hidden;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .reveal-content {
+            display: block;
+            transform: translateY(110%); /* Start hidden below */
+            opacity: 0;
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); /* "Expo" ease */
+        }
+        
+        /* Trigger class */
+        .reveal-content.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* 3. Magnetic Magnetic Buttons */
+        .magnetic-wrap {
+            display: inline-block;
+            position: relative;
+        }
+
+        /* 4. Parallax Image Wrapper */
+        .parallax-wrapper {
+            position: relative;
+            /* Ensure height is set in inline or specific context */
+        }
+        .parallax-img {
+            /* Remove transition here to avoid laggy scroll sync, or make it very fast */
+            transition: none !important; 
+            will-change: transform;
+        }
+
+        /* 5. 3D Tilt Cards */
+        .service-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+        
+        .tilt-content {
+            transform: translateZ(20px); /* Pop out content */
+        }
+
+        /* 6. Curtain Image Reveal */
+        .curtain-reveal {
+            position: relative;
+            overflow: hidden;
+            clip-path: inset(0 100% 0 0); /* Start fully clipped from right */
+            transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        
+        .curtain-reveal.active {
+            clip-path: inset(0 0 0 0); /* Reveal */
+        }
+        
+        /* The curtain reveal now affects the wrapper/container, we moved the scale anim to the wrapper to avoid conflict with parallax img transform */
+        .curtain-reveal .parallax-wrapper {
+            transform: scale(1.3);
+            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+            transform-origin: center;
+        }
+        
+        .curtain-reveal.active .parallax-wrapper {
+            transform: scale(1);
+        }
+
+        /* Custom Cursor (Optional creative touch) */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            display: none; /* Hidden on touch/mobile by default */
+        }
+        
+        @media (min-width: 1025px) {
+            .cursor-dot {
+                display: block;
+                width: 8px;
+                height: 8px;
+                background-color: var(--primary-gold);
+            }
+            .cursor-outline {
+                display: block;
+                width: 40px;
+                height: 40px;
+                border: 1px solid var(--primary-gold);
+                transition: width 0.2s, height 0.2s, background-color 0.2s;
+            }
+            
+            /* Hover states for Cursor */
+            body.hovering .cursor-outline {
+                width: 60px;
+                height: 60px;
+                background-color: rgba(43, 110, 61, 0.1);
+                border-color: transparent;
+            }
+        }
+
+        /* Adjust Hero for Reveal */
+        .hero-content h1 {
+            overflow: visible; /* Override previous if needed */
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <header id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="assets/logo.webp" alt="To The Top Events">
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#about">Philosophy</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact" class="btn btn-filled">Book Now</a></li>
+            </ul>
+
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                <span class="reveal-container">
+                    <span class="reveal-content tubelight-text" style="transition-delay: 0.1s;">Exquisite Planning</span>
+                </span>
+                <span class="reveal-container">
+                    <span class="reveal-content" style="font-family: var(--font-heading); text-transform: none; letter-spacing: 0; font-size: 4.5rem; color: var(--off-white); transition-delay: 0.2s;">To The Top Events</span>
+                </span>
+            </h1>
+            
+            <div class="reveal-container">
+                <p class="reveal-content" style="transition-delay: 0.3s;">Curating unforgettable moments for high-end weddings, corporate galas, and private celebrations.</p>
+            </div>
+            
+            <div class="reveal-container" style="overflow: visible;"> <!-- Button needs visible overflow for shadows/magnetic -->
+                <div class="reveal-content" style="transition-delay: 0.4s;">
+                    <div class="magnetic-wrap">
+                        <a href="#contact" class="btn magnetic-btn">Start Your Journey</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down" style="color: var(--off-white); font-size: 1.5rem;"></i>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section-padding about">
+        <div class="container">
+            <div class="about-grid">
+                <!-- Collage Structure -->
+                <div class="about-collage">
+                    <img src="assets/Event_2.JPG" alt="Grand Event Setup" class="collage-img collage-main" data-aos="fade-right">
+                    <img src="assets/image4.jpg" alt="Our Staff" class="collage-img" data-aos="fade-up" data-aos-delay="100">
+                    <img src="assets/Event_1.JPG" alt="Luxury Details" class="collage-img" data-aos="fade-up" data-aos-delay="200">
+                </div>
+                <div class="about-text" data-aos="fade-left">
+                    <h4 style="color:var(--primary-gold); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px;">Who We Are</h4>
+                    <h2>Elevating Expectations</h2>
+                    <p>At <strong>To The Top Events</strong>, we believe that luxury lies in the details. We don't just plan events; we orchestrate experiences that linger in memory long after the last guest has departed.</p>
+                    <p>From intimate gatherings to grand ballroom affairs, our philosophy is rooted in precision, elegance, and a relentless pursuit of perfection. Your vision is our blueprint.</p>
+                    <br>
+                    <a href="#portfolio" class="service-link">View Our Work &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="section-padding services">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h2>Our Expertise</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card tilt-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tilt-content">
+                        <div class="icon-box"><i class="fas fa-cocktail"></i></div>
+                        <h3>Bar-Tenders</h3>
+                        <p>Professional bartending services with expert mixologists who craft signature cocktails and provide exceptional beverage experiences for your guests.</p>
+                        <a href="#contact" class="service-link">Inquire</a>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card tilt-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tilt-content">
+                        <div class="icon-box"><i class="fas fa-user-tie"></i></div>
+                        <h3>Serving Staff</h3>
+                        <p>Trained and professional serving staff who deliver impeccable service, ensuring your guests are attended to with grace and efficiency.</p>
+                        <a href="#contact" class="service-link">Inquire</a>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card tilt-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tilt-content">
+                        <div class="icon-box"><i class="fas fa-chair"></i></div>
+                        <h3>Rental Services</h3>
+                        <p>Complete rental solutions including portable bars, elegant chairs, premium table cloths, and stunning decorations to transform your venue.</p>
+                        <a href="#contact" class="service-link">Inquire</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section id="portfolio" class="gallery">
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="assets/event_3.jpeg" alt="The Henderson Wedding" class="focus-face">
+                <div class="gallery-overlay"><h4>The Henderson Wedding</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/image2.jpg" alt="Event 2">
+                <div class="gallery-overlay"><h4>Fashion Week Gala</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/image.jpg" alt="Event 3">
+                <div class="gallery-overlay"><h4>Rooftop Cocktail</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/IMG_4124.jpeg" alt="Silver Jubilee">
+                <div class="gallery-overlay"><h4>Silver Jubilee</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/event_5.jpeg" alt="Event 5">
+                <div class="gallery-overlay"><h4>Garden Reception</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/Event_6.jpg" alt="Black Tie Banquet">
+                <div class="gallery-overlay"><h4>Black Tie Banquet</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/Event_6.jpg" alt="Signature Ballroom" class="curtain-reveal">
+                <div class="gallery-overlay"><h4>Signature Ballroom</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENT REVIEWS SECTION -->
+    <section id="reviews" class="section-padding reviews">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h2>Client Reviews</h2>
+                <div class="line"></div>
+                <p style="margin-top: 20px; color: var(--text-grey);">Hear what our clients have to say about their experiences</p>
+            </div>
+
+            <div class="carousel-scene">
+                <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                <div class="carousel" id="reviewCarousel">
+                    <!-- Review 1 -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">To The Top Events transformed our wedding into an absolute dream. Every detail was perfect, from the stunning decorations to the impeccable service. Our guests are still talking about it!</p>
+                        <div class="review-author">
+                            <div class="review-avatar">SM</div>
+                            <div class="review-info">
+                                <h4>Sarah & Michael</h4>
+                                <p>Wedding Celebration</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">Professional, reliable, and incredibly talented. The bartenders and serving staff were exceptional, and the rental equipment was top-quality. Highly recommend for any corporate event!</p>
+                        <div class="review-author">
+                            <div class="review-avatar">JT</div>
+                            <div class="review-info">
+                                <h4>Jennifer Thompson</h4>
+                                <p>Corporate Gala</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">From the initial consultation to the final toast, everything was flawless. The attention to detail and personalized service made our anniversary celebration truly unforgettable.</p>
+                        <div class="review-author">
+                            <div class="review-avatar">RA</div>
+                            <div class="review-info">
+                                <h4>Robert Anderson</h4>
+                                <p>Private Celebration</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 4 -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">The portable bar and elegant table settings completely transformed our venue. The rental equipment was pristine and the setup crew was professional and efficient. Worth every penny!</p>
+                        <div class="review-author">
+                            <div class="review-avatar">DM</div>
+                            <div class="review-info">
+                                <h4>Diana Martinez</h4>
+                                <p>Charity Fundraiser</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 5 -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">We've worked with To The Top Events for three consecutive years for our annual company retreat. Their consistency, creativity, and professionalism keep us coming back. They're simply the best!</p>
+                        <div class="review-author">
+                            <div class="review-avatar">KC</div>
+                            <div class="review-info">
+                                <h4>Kevin Chen</h4>
+                                <p>Corporate Retreat</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 6 -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">The mixologists created custom cocktails that perfectly matched our theme. Our guests loved the signature drinks and the bartenders were entertaining and professional throughout the evening.</p>
+                        <div class="review-author">
+                            <div class="review-avatar">LP</div>
+                            <div class="review-info">
+                                <h4>Lauren Parker</h4>
+                                <p>Milestone Birthday</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 7 -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">Exceptional service from start to finish. The serving staff was attentive without being intrusive, and they handled our 200+ guest event with grace and efficiency. Truly top-tier professionals.</p>
+                        <div class="review-author">
+                            <div class="review-avatar">BW</div>
+                            <div class="review-info">
+                                <h4>Brandon Williams</h4>
+                                <p>Product Launch</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 8 -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">Planning a destination wedding seemed overwhelming until we found To The Top Events. They coordinated everything seamlessly and made our dream beach wedding a reality. Forever grateful!</p>
+                        <div class="review-author">
+                            <div class="review-avatar">EJ</div>
+                            <div class="review-info">
+                                <h4>Emma & James</h4>
+                                <p>Destination Wedding</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 9 -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">The decorations were absolutely stunning and the chair covers and linens were immaculate. They turned our simple venue into an elegant ballroom. The transformation was incredible!</p>
+                        <div class="review-author">
+                            <div class="review-avatar">NS</div>
+                            <div class="review-info">
+                                <h4>Nina Shah</h4>
+                                <p>Engagement Party</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS / TRUST SECTION -->
+    <section class="section-padding text-center" style="background: var(--deep-navy);">
+        <div class="container">
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px;">
+                <div data-aos="zoom-in">
+                    <h3 style="font-size: 2.5rem; color: var(--primary-gold);">10+</h3>
+                    <p style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Years Experience</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="100">
+                    <h3 style="font-size: 2.5rem; color: var(--primary-gold);">500+</h3>
+                    <p style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Events Curated</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="200">
+                    <h3 style="font-size: 2.5rem; color: var(--primary-gold);">100%</h3>
+                    <p style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Client Satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section-padding inquiry">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Begin The Experience</h2>
+                <div class="line"></div>
+                <p style="margin-top: 20px;">Tell us about your upcoming event.</p>
+            </div>
+
+            <div class="form-box" data-aos="fade-up">
+                <form>
+                    <div class="input-group">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="tel" placeholder="Phone Number">
+                        <select>
+                            <option value="" disabled selected>Event Type</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="corporate">Corporate</option>
+                            <option value="private">Private Party</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <input type="date" placeholder="Event Date" style="margin-bottom: 20px;">
+                    <textarea rows="4" placeholder="Tell us about your vision..." required></textarea>
+                    
+                    <div class="text-center" style="margin-top: 40px;">
+                        <button type="submit" class="btn btn-filled">Request Consultation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3 class="footer-title">To The Top Events</h3>
+                    <p class="footer-desc">Defining the standard for luxury event management. We turn moments into milestones.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Contact</h3>
+                    <div class="footer-contact">
+                        <p>tothetop.events@gmail.com</p>
+                        <p>+1 (848) 336-9244</p>
+                        <p>New Jersey</p>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="footer-title">Follow Us</h3>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        <a href="#"><i class="fab fa-pinterest"></i> Pinterest</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 To The Top Events. All Rights Reserved.</p>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        let lenis;
+        if (typeof Lenis !== 'undefined') {
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        }
+
+        AOS.init({
+            once: true,
+            offset: 100,
+        });
+
+        const header = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links li');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            const icon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.remove('fa-times');
+                hamburger.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        window.addEventListener('load', () => {
+            const reveals = document.querySelectorAll('.reveal-content');
+            reveals.forEach(el => el.classList.add('visible'));
+        });
+
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        
+        if (window.matchMedia("(min-width: 1025px)").matches) {
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+
+            const interactiveElements = document.querySelectorAll('a, button, .btn, .service-card, .gallery-item');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
+        }
+
+        const magneticWraps = document.querySelectorAll('.magnetic-wrap');
+        
+        magneticWraps.forEach(wrap => {
+            const btn = wrap.querySelector('.magnetic-btn');
+            
+            wrap.addEventListener('mousemove', (e) => {
+                const rect = wrap.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            
+            wrap.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        function updateParallax() {
+            const parallaxWrappers = document.querySelectorAll('.parallax-wrapper');
+            parallaxWrappers.forEach(wrapper => {
+                const img = wrapper.querySelector('.parallax-img');
+                const speed = wrapper.getAttribute('data-speed') || 0.5;
+                const rect = wrapper.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+                    const translateY = (scrollProgress - 0.5) * 100 * speed;
+                    img.style.transform = `scale(1.1) translateY(${translateY}px)`;
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateParallax);
+
+        // 3D Carousel Logic
+        const carousel = document.getElementById('reviewCarousel');
+        const cards = carousel.querySelectorAll('.review-card');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        
+        const cardCount = cards.length;
+        const theta = 360 / cardCount;
+        // Calculate radius based on card width and count
+        const radius = Math.round(((320 + 40) * cardCount) / (2 * Math.PI));
+        
+        let currentAngle = 0;
+        let isDragging = false;
+        let startX = 0;
+        let startAngle = 0;
+
+        // Position cards in circle
+        cards.forEach((card, index) => {
+            const angle = theta * index;
+            card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+            card.dataset.angle = angle;
+        });
+
+        function updateCarousel() {
+            carousel.style.transform = `rotateY(${currentAngle}deg)`;
+            
+            // Update Visibility (Show only 3 cards)
+            cards.forEach(card => {
+                const cardAngle = parseFloat(card.dataset.angle);
+                let relativeAngle = (cardAngle + currentAngle) % 360;
+                
+                // Normalize to -180 to 180
+                if (relativeAngle > 180) relativeAngle -= 360;
+                if (relativeAngle < -180) relativeAngle += 360;
+                
+                // We want center (0), left (-theta), right (+theta)
+                // Threshold is halfway to the next card (theta * 1.5)
+                const visibleThreshold = theta * 1.5;
+                
+                if (Math.abs(relativeAngle) < visibleThreshold) {
+                    card.style.pointerEvents = 'auto';
+                    card.style.visibility = 'visible';
+                    
+                    // Center card
+                    if (Math.abs(relativeAngle) < theta * 0.5) {
+                        card.style.opacity = 1;
+                        card.style.filter = 'blur(0px) brightness(1.1)';
+                        card.style.zIndex = 10;
+                        card.classList.add('active');
+                    } 
+                    // Side cards
+                    else {
+                        card.style.opacity = 0.5;
+                        card.style.filter = 'blur(2px) brightness(0.8)';
+                        card.style.zIndex = 5;
+                        card.classList.remove('active');
+                    }
+                } else {
+                    card.style.opacity = 0;
+                    card.style.visibility = 'hidden';
+                    card.style.pointerEvents = 'none';
+                    card.classList.remove('active');
+                }
+            });
+        }
+        
+        // Initial setup
+        updateCarousel();
+
+        // Arrow Navigation
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                currentAngle += theta;
+                updateCarousel();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentAngle -= theta;
+                updateCarousel();
+            });
+        }
+
+        // Drag Interaction
+        const scene = document.querySelector('.carousel-scene'); 
+
+        const startDrag = (e) => {
+            // Allow clicking buttons without triggering drag
+            if (e.target.closest('.carousel-btn')) return;
+
+            isDragging = true;
+            startX = e.pageX || e.touches[0].pageX;
+            startAngle = currentAngle;
+            carousel.style.transition = 'none'; // Disable transition for direct control
+            carousel.style.cursor = 'grabbing';
+        };
+
+        const moveDrag = (e) => {
+            if (!isDragging) return;
+            const x = e.pageX || e.touches[0].pageX;
+            const deltaX = x - startX;
+            // Sensitivity
+            currentAngle = startAngle + (deltaX * 0.5); 
+            updateCarousel();
+        };
+
+        const endDrag = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            carousel.style.cursor = 'grab';
+            carousel.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            
+            // Snap to nearest card
+            const snapIndex = Math.round(currentAngle / theta);
+            currentAngle = snapIndex * theta;
+            updateCarousel();
+        };
+
+        // Mouse Events
+        scene.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', moveDrag);
+        window.addEventListener('mouseup', endDrag);
+        scene.addEventListener('mouseleave', () => {
+            if (isDragging) endDrag();
+        });
+
+        // Touch Events
+        scene.addEventListener('touchstart', startDrag);
+        window.addEventListener('touchmove', moveDrag);
+        window.addEventListener('touchend', endDrag);
+
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPct = x / rect.width;
+                const yPct = y / rect.height;
+                
+                const xRot = (0.5 - yPct) * 15;
+                const yRot = (xPct - 0.5) * 15;
+                
+                card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'transform 0.5s ease';
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                setTimeout(() => { card.style.transition = ''; }, 500);
+            });
+        });
+
+        const curtainObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.curtain-reveal').forEach(el => {
+            curtainObserver.observe(el);
+        });
+
+        // G. Enhanced Form Interactions
+        const formInputs = document.querySelectorAll('form input, form select, form textarea');
+        const formBox = document.querySelector('.form-box');
+        
+        formInputs.forEach(input => {
+            // Add floating label effect
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('input-focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentElement.classList.remove('input-focused');
+                }
+            });
+
+            // Add ripple effect on focus
+            input.addEventListener('focus', function(e) {
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    background: rgba(43, 110, 61, 0.4);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: rippleEffect 0.6s ease-out;
+                    left: ${e.offsetX}px;
+                    top: ${e.offsetY}px;
+                    transform: translate(-50%, -50%);
+                `;
+                
+                this.parentElement.style.position = 'relative';
+                this.parentElement.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rippleEffect {
+                to {
+                    width: 100px;
+                    height: 100px;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Form submission handler with animation
+        const contactForm = document.querySelector('#contact form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const button = this.querySelector('.btn-filled');
+                const originalText = button.textContent;
+                
+                // Button loading animation
+                button.textContent = 'Sending...';
+                button.style.pointerEvents = 'none';
+                button.style.opacity = '0.7';
+                
+                // Simulate form submission (replace with actual submission logic)
+                setTimeout(() => {
+                    button.textContent = '✓ Sent Successfully!';
+                    button.style.background = 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)';
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.pointerEvents = 'auto';
+                        button.style.opacity = '1';
+                        button.style.background = '';
+                        contactForm.reset();
+                    }, 2000);
+                }, 1500);
+            });
+        }
+
+        // Parallax effect on form box
+        if (formBox && window.matchMedia("(min-width: 1025px)").matches) {
+            window.addEventListener('scroll', () => {
+                const rect = formBox.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+                    const translateY = (scrollProgress - 0.5) * 20;
+                    formBox.style.transform = `translateY(${translateY}px)`;
+                }
+            });
+        }
+
+        /* Update Interactive Elements for Cursor Hover */
+        if (window.matchMedia("(min-width: 1025px)").matches) {
+            const newInteractiveElements = document.querySelectorAll('.review-card');
+            newInteractiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
+        }
+    </script>
+</body>
+</html>

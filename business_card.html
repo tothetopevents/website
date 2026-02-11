@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To The Top Events | Business Card</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- QR Code Generator -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
+    <style>
+        :root {
+            --primary-green: #2B6E3D;
+            --primary-green-light: #3a8f52;
+            --secondary-dark: #323634;
+            --deep-navy: #1C1E1E;
+            --off-white: #FDFDFE;
+            --text-grey: #D7E4DA;
+            --gold-accent: #C9A961;
+            --card-w: 336px;   /* 3.5in * 96dpi */
+            --card-h: 576px;   /* 6in * 96dpi (vertical) */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #0e0f0f;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--off-white);
+            overflow-x: hidden;
+            padding: 40px 20px;
+        }
+
+        /* ── Page Title ── */
+        .page-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .page-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+        .page-title p {
+            font-size: 0.85rem;
+            color: #888;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ── Card Scene (3D flip container) ── */
+        .cards-wrapper {
+            display: flex;
+            gap: 80px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .card-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #555;
+        }
+
+        .card-scene {
+            width: var(--card-w);
+            height: var(--card-h);
+            perspective: 1200px;
+        }
+
+        .card-body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .card-scene:hover .card-body {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(43,110,61,0.15);
+        }
+
+        .card-front { z-index: 2; }
+        .card-back  { transform: rotateY(180deg); }
+
+        /* ═══════════════════════════════════════════
+           FRONT FACE
+           ═══════════════════════════════════════════ */
+        .card-front {
+            background: linear-gradient(165deg, #1a1c1c 0%, #141616 40%, #0f1010 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+
+        /* Decorative top accent bar */
+        .front-accent-bar {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-green), var(--gold-accent), var(--primary-green));
+            flex-shrink: 0;
+        }
+
+        /* Geometric corner ornaments */
+        .corner-ornament {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            opacity: 0.12;
+        }
+        .corner-ornament.top-right {
+            top: 20px; right: 20px;
+            border-top: 2px solid var(--primary-green);
+            border-right: 2px solid var(--primary-green);
+        }
+        .corner-ornament.bottom-left {
+            bottom: 20px; left: 20px;
+            border-bottom: 2px solid var(--primary-green);
+            border-left: 2px solid var(--primary-green);
+        }
+
+        /* Subtle diagonal pattern overlay */
+        .front-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 30px,
+                rgba(43,110,61,0.02) 30px,
+                rgba(43,110,61,0.02) 31px
+            );
+            pointer-events: none;
+        }
+
+        /* Logo area */
+        .front-logo-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            padding: 40px 30px 20px;
+        }
+
+        /* Glowing ring behind logo */
+        .logo-ring {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+        }
+
+        .logo-ring::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(43,110,61,0.3);
+            animation: ringPulse 4s ease-in-out infinite;
+        }
+
+        .logo-ring::after {
+            content: '';
+            position: absolute;
+            inset: -14px;
+            border-radius: 50%;
+            border: 1px solid rgba(43,110,61,0.1);
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.03); }
+        }
+
+        .logo-ring img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 50%;
+            filter: drop-shadow(0 4px 20px rgba(43,110,61,0.3));
+        }
+
+        .front-company-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--off-white);
+            letter-spacing: 1px;
+            text-align: center;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .front-company-name span {
+            color: var(--primary-green);
+        }
+
+        .front-tagline {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--gold-accent);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Divider line with diamond */
+        .diamond-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .diamond-divider .line {
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-green), transparent);
+        }
+        .diamond-divider .diamond {
+            width: 6px;
+            height: 6px;
+            background: var(--primary-green);
+            transform: rotate(45deg);
+        }
+
+        /* Contact person */
+        .front-person-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--off-white);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .front-person-title {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary-green);
+            text-align: center;
+        }
+
+        /* Bottom contact strip */
+        .front-bottom-strip {
+            background: rgba(43,110,61,0.08);
+            border-top: 1px solid rgba(43,110,61,0.15);
+            padding: 18px 24px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .front-bottom-strip .contact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid rgba(43,110,61,0.3);
+            color: var(--primary-green);
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .front-bottom-strip .contact-icon:hover {
+            background: var(--primary-green);
+            color: var(--deep-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(43,110,61,0.3);
+        }
+
+        /* ═══════════════════════════════════════════
+           BACK FACE
+           ═══════════════════════════════════════════ */
+        .card-back {
+            background: linear-gradient(170deg, #1a1c1c 0%, #111313 50%, #0d0e0e 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+
+        /* Top green band */
+        .back-top-band {
+            background: rgba(43,110,61,0.08);
+            padding: 18px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            border-bottom: 1px solid rgba(43,110,61,0.15);
+            box-shadow: inset 0 -8px 20px rgba(0,0,0,0.25);
+        }
+
+        .back-top-band::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 0 0 20px 20px;
+            border: 1px solid rgba(43,110,61,0.15);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .back-top-band .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--gold-accent);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+
+        /* QR Code section */
+        .back-qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 28px 14px;
+            position: relative;
+        }
+
+        .back-qr-section::before {
+            content: '';
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(43,110,61,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .qr-label {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--off-white);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .qr-frame {
+            position: relative;
+            padding: 10px;
+            background: var(--off-white);
+            border-radius: 12px;
+            box-shadow:
+                0 6px 24px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(201,169,97,0.2),
+                0 0 30px rgba(43,110,61,0.1);
+            z-index: 1;
+        }
+
+        .qr-frame canvas,
+        .qr-frame img {
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Corner accents on QR frame */
+        .qr-frame::before,
+        .qr-frame::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold-accent);
+        }
+        .qr-frame::before { top: -4px; left: 50%; transform: translateX(-50%); }
+        .qr-frame::after  { bottom: -4px; left: 50%; transform: translateX(-50%); }
+
+        .qr-url {
+            font-size: 0.6rem;
+            color: var(--off-white);
+            letter-spacing: 1.5px;
+            margin-top: 10px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Divider */
+        .back-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        /* Contact details section */
+        .back-contact-section {
+            padding: 10px 24px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            flex-shrink: 0;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 7px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .contact-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .contact-row .icon-circle {
+            width: 26px;
+            height: 26px;
+            min-width: 26px;
+            border-radius: 50%;
+            background: rgba(201,169,97,0.08);
+            border: 1px solid rgba(201,169,97,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-accent);
+            font-size: 0.65rem;
+        }
+
+        .contact-row .contact-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-row .contact-label {
+            font-size: 0.45rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(253,253,254,0.6);
+            margin-bottom: 1px;
+        }
+
+        .contact-row .contact-value {
+            font-size: 0.7rem;
+            color: var(--off-white);
+            font-weight: 400;
+        }
+
+        /* Bottom accent bar */
+        .back-accent-bar {
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-green), var(--gold-accent), var(--primary-green));
+            flex-shrink: 0;
+        }
+
+        /* ── Static Preview Cards (no flip) ── */
+        .static-card {
+            width: var(--card-w);
+            height: var(--card-h);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(43,110,61,0.15);
+        }
+
+        .static-front {
+            background: linear-gradient(165deg, #1a1c1c 0%, #141616 40%, #0f1010 100%);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .static-back {
+            background: linear-gradient(170deg, #1a1c1c 0%, #111313 50%, #0d0e0e 100%);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* ── Flip hint ── */
+        .flip-hint {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.75rem;
+            color: #444;
+            letter-spacing: 1px;
+        }
+        .flip-hint i {
+            margin-right: 6px;
+            color: var(--primary-green);
+        }
+
+        /* ── Print Styles ── */
+        @media print {
+            body { background: white; }
+            .page-title, .flip-hint, .card-label { display: none; }
+            .card-scene { box-shadow: none; }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 800px) {
+            .cards-wrapper { gap: 50px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-title">
+        <h1>Business Card Design</h1>
+        <p>To The Top Events</p>
+    </div>
+
+    <div class="cards-wrapper">
+
+        <!-- ════════ FRONT (static preview) ════════ -->
+        <div class="card-column">
+            <span class="card-label">Front</span>
+            <div class="static-card">
+                <div class="static-front">
+                    <div class="front-accent-bar"></div>
+                    <div class="front-pattern"></div>
+                    <div class="corner-ornament top-right"></div>
+                    <div class="corner-ornament bottom-left"></div>
+
+                    <div class="front-logo-area">
+                        <div class="logo-ring">
+                            <img src="assets/logo.webp" alt="To The Top Events Logo">
+                        </div>
+                        <div class="front-company-name">To <span>The Top</span> Events</div>
+                        <div class="front-tagline">Premier Event Management</div>
+
+                        <div class="diamond-divider">
+                            <div class="line"></div>
+                            <div class="diamond"></div>
+                            <div class="line"></div>
+                        </div>
+
+                        <div class="front-person-name">Bryan Suarez</div>
+                        <div class="front-person-title">Founder</div>
+                    </div>
+
+                    <div class="front-bottom-strip">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                        <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════ BACK (static preview) ════════ -->
+        <div class="card-column">
+            <span class="card-label">Back</span>
+            <div class="static-card">
+                <div class="static-back">
+                    <div class="back-top-band">
+                        <div class="brand-name">To The Top Events</div>
+                    </div>
+
+                    <div class="back-qr-section">
+                        <span class="qr-label">Scan to Visit</span>
+                        <div class="qr-frame" id="qr-container"></div>
+                        <span class="qr-url">tothetopevents.com</span>
+                    </div>
+
+                    <div class="back-divider"></div>
+
+                    <div class="back-contact-section">
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Email</span>
+                                <span class="contact-value">tothetop.events@gmail.com</span>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fas fa-phone"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Phone</span>
+                                <span class="contact-value">+1 (848) 336-9244</span>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Location</span>
+                                <span class="contact-value">New Jersey, USA</span>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fas fa-globe"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Website</span>
+                                <span class="contact-value">tothetopevents.com</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fab fa-instagram"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Instagram</span>
+                                <span class="contact-value">@tothetop_events</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="back-accent-bar"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ════════ INTERACTIVE FLIP CARD ════════ -->
+    <div style="margin-top: 70px;" class="card-column">
+        <span class="card-label">Interactive Preview &mdash; Hover to Flip</span>
+        <div class="card-scene">
+            <div class="card-body">
+                <!-- Front -->
+                <div class="card-face card-front">
+                    <div class="front-accent-bar"></div>
+                    <div class="front-pattern"></div>
+                    <div class="corner-ornament top-right"></div>
+                    <div class="corner-ornament bottom-left"></div>
+
+                    <div class="front-logo-area">
+                        <div class="logo-ring">
+                            <img src="assets/logo.webp" alt="To The Top Events Logo">
+                        </div>
+                        <div class="front-company-name">To <span>The Top</span> Events</div>
+                        <div class="front-tagline">Premier Event Management</div>
+
+                        <div class="diamond-divider">
+                            <div class="line"></div>
+                            <div class="diamond"></div>
+                            <div class="line"></div>
+                        </div>
+
+                        <div class="front-person-name">Bryan Suarez</div>
+                        <div class="front-person-title">Founder</div>
+                    </div>
+
+                    <div class="front-bottom-strip">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                        <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+                    </div>
+                </div>
+
+                <!-- Back -->
+                <div class="card-face card-back">
+                    <div class="back-top-band">
+                        <div class="brand-name">To The Top Events</div>
+                    </div>
+
+                    <div class="back-qr-section">
+                        <span class="qr-label">Scan to Visit</span>
+                        <div class="qr-frame" id="qr-container-flip"></div>
+                        <span class="qr-url">tothetopevents.com</span>
+                    </div>
+
+                    <div class="back-divider"></div>
+
+                    <div class="back-contact-section">
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Email</span>
+                                <span class="contact-value">tothetop.events@gmail.com</span>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fas fa-phone"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Phone</span>
+                                <span class="contact-value">+1 (848) 336-9244</span>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Location</span>
+                                <span class="contact-value">New Jersey, USA</span>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fas fa-globe"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Website</span>
+                                <span class="contact-value">tothetopevents.com</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-row">
+                            <div class="icon-circle"><i class="fab fa-instagram"></i></div>
+                            <div class="contact-text">
+                                <span class="contact-label">Instagram</span>
+                                <span class="contact-value">@tothetop_events</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="back-accent-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flip-hint">
+        <i class="fas fa-sync-alt"></i> Hover the interactive card to see the back
+    </div>
+
+    <script>
+        // Generate QR codes pointing to the website
+        function generateQR(containerId, url, size) {
+            var qr = qrcode(0, 'M');
+            qr.addData(url);
+            qr.make();
+
+            var moduleCount = qr.getModuleCount();
+            var canvas = document.createElement('canvas');
+            var cellSize = Math.floor(size / moduleCount);
+            var totalSize = cellSize * moduleCount;
+            canvas.width = totalSize;
+            canvas.height = totalSize;
+            var ctx = canvas.getContext('2d');
+
+            // White background
+            ctx.fillStyle = '#FDFDFE';
+            ctx.fillRect(0, 0, totalSize, totalSize);
+
+            // Draw modules with brand green
+            for (var row = 0; row < moduleCount; row++) {
+                for (var col = 0; col < moduleCount; col++) {
+                    if (qr.isDark(row, col)) {
+                        ctx.fillStyle = '#1C1E1E';
+                        // Rounded squares for a modern look
+                        roundRect(ctx, col * cellSize, row * cellSize, cellSize - 0.5, cellSize - 0.5, 1);
+                    }
+                }
+            }
+
+            // Add green accent to the 3 finder patterns
+            drawFinderAccent(ctx, 0, 0, cellSize, 7);
+            drawFinderAccent(ctx, (moduleCount - 7) * cellSize, 0, cellSize, 7);
+            drawFinderAccent(ctx, 0, (moduleCount - 7) * cellSize, cellSize, 7);
+
+            var container = document.getElementById(containerId);
+            if (container) container.appendChild(canvas);
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawFinderAccent(ctx, x, y, cellSize, modules) {
+            // Outer ring in brand green
+            ctx.strokeStyle = '#2B6E3D';
+            ctx.lineWidth = cellSize * 0.6;
+            var offset = cellSize * 0.5;
+            var size = (modules - 1) * cellSize;
+            ctx.strokeRect(x + offset, y + offset, size, size);
+        }
+
+        // Generate for both static and flip cards
+        generateQR('qr-container', 'https://tothetopevents.com', 130);
+        generateQR('qr-container-flip', 'https://tothetopevents.com', 130);
+    </script>
+
+</body>
+</html>
