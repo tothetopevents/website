@@ -150,15 +150,17 @@
         }
 
         .logo img {
-            width: auto;
             display: block;
             background-color: transparent;
             filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
         }
 
         .logo img {
-            height: 50px;
-            /* Base transition handled in animation block */
+            height: 80px;
+            max-height: 90px;
+            max-width: 220px;
+            width: auto;
+            transition: transform 0.3s ease;
         }
         
         .nav-links {
