@@ -10,9 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- QR Code Generator -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-
     <style>
         :root {
             --primary-green: #2B6E3D;
@@ -401,6 +398,9 @@
         .qr-frame img {
             display: block;
             border-radius: 4px;
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
         }
 
         /* Corner accents on QR frame */
@@ -606,8 +606,10 @@
 
                     <div class="back-qr-section">
                         <span class="qr-label">Scan to Visit</span>
-                        <div class="qr-frame" id="qr-container"></div>
-                        <span class="qr-url">tothetopevents.com</span>
+                        <div class="qr-frame">
+                            <img src="assets/qr-code.png" alt="Scan to visit To The Top Events">
+                        </div>
+                        <span class="qr-url">tothetopevents.netlify.app</span>
                     </div>
 
                     <div class="back-divider"></div>
@@ -638,7 +640,7 @@
                             <div class="icon-circle"><i class="fas fa-globe"></i></div>
                             <div class="contact-text">
                                 <span class="contact-label">Website</span>
-                                <span class="contact-value">tothetopevents.com</span>
+                                <span class="contact-value">tothetopevents.netlify.app</span>
                             </div>
                         </div>
 
@@ -703,8 +705,10 @@
 
                     <div class="back-qr-section">
                         <span class="qr-label">Scan to Visit</span>
-                        <div class="qr-frame" id="qr-container-flip"></div>
-                        <span class="qr-url">tothetopevents.com</span>
+                        <div class="qr-frame">
+                            <img src="assets/qr-code.png" alt="Scan to visit To The Top Events">
+                        </div>
+                        <span class="qr-url">tothetopevents.netlify.app</span>
                     </div>
 
                     <div class="back-divider"></div>
@@ -735,7 +739,7 @@
                             <div class="icon-circle"><i class="fas fa-globe"></i></div>
                             <div class="contact-text">
                                 <span class="contact-label">Website</span>
-                                <span class="contact-value">tothetopevents.com</span>
+                                <span class="contact-value">tothetopevents.netlify.app</span>
                             </div>
                         </div>
 
@@ -757,74 +761,6 @@
     <div class="flip-hint">
         <i class="fas fa-sync-alt"></i> Hover the interactive card to see the back
     </div>
-
-    <script>
-        // Generate QR codes pointing to the website
-        function generateQR(containerId, url, size) {
-            var qr = qrcode(0, 'M');
-            qr.addData(url);
-            qr.make();
-
-            var moduleCount = qr.getModuleCount();
-            var canvas = document.createElement('canvas');
-            var cellSize = Math.floor(size / moduleCount);
-            var totalSize = cellSize * moduleCount;
-            canvas.width = totalSize;
-            canvas.height = totalSize;
-            var ctx = canvas.getContext('2d');
-
-            // White background
-            ctx.fillStyle = '#FDFDFE';
-            ctx.fillRect(0, 0, totalSize, totalSize);
-
-            // Draw modules with brand green
-            for (var row = 0; row < moduleCount; row++) {
-                for (var col = 0; col < moduleCount; col++) {
-                    if (qr.isDark(row, col)) {
-                        ctx.fillStyle = '#1C1E1E';
-                        // Rounded squares for a modern look
-                        roundRect(ctx, col * cellSize, row * cellSize, cellSize - 0.5, cellSize - 0.5, 1);
-                    }
-                }
-            }
-
-            // Add green accent to the 3 finder patterns
-            drawFinderAccent(ctx, 0, 0, cellSize, 7);
-            drawFinderAccent(ctx, (moduleCount - 7) * cellSize, 0, cellSize, 7);
-            drawFinderAccent(ctx, 0, (moduleCount - 7) * cellSize, cellSize, 7);
-
-            var container = document.getElementById(containerId);
-            if (container) container.appendChild(canvas);
-        }
-
-        function roundRect(ctx, x, y, w, h, r) {
-            ctx.beginPath();
-            ctx.moveTo(x + r, y);
-            ctx.lineTo(x + w - r, y);
-            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-            ctx.lineTo(x + w, y + h - r);
-            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-            ctx.lineTo(x + r, y + h);
-            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-            ctx.lineTo(x, y + r);
-            ctx.quadraticCurveTo(x, y, x + r, y);
-            ctx.closePath();
-            ctx.fill();
-        }
-
-        function drawFinderAccent(ctx, x, y, cellSize, modules) {
-            // Outer ring in brand green
-            ctx.strokeStyle = '#2B6E3D';
-            ctx.lineWidth = cellSize * 0.6;
-            var offset = cellSize * 0.5;
-            var size = (modules - 1) * cellSize;
-            ctx.strokeRect(x + offset, y + offset, size, size);
-        }
-
-        // Generate for both static and flip cards
-        generateQR('qr-container', 'https://tothetopevents.com', 130);
-        generateQR('qr-container-flip', 'https://tothetopevents.com', 130);
-    </script>
 
 </body>
 </html>
